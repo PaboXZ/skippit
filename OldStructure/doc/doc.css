@@ -1,0 +1,19 @@
+table th,
+table td
+{
+	border: 2px solid black;
+	padding: 5px;
+}
+table
+{
+	margin: 20px;
+	border-collapse: collapse;
+}
+.status-ok
+{
+	color: green;
+}
+.status-to-do
+{
+	color: red;
+}

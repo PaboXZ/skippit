@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" href="doc.css"/>
+	
+	<title>Skippit - Dokumentacja</title>
+</head>
+<body>
+	<div>
+		<h1>DOCUMENTATION for Skippit<h1>
+	</div>
+	<div id="database">
+		<h2>DATABASE</h2>
+		<table>
+			<tr>
+				<th colspan="6">user_data</th>
+			</tr>
+			<tr>
+				<th>user_id</th>
+				<th>user_email</th>
+				<th>user_password</th>
+				<th>user_name</th>
+			</tr>
+			<tr>
+				<td>int(11), PRIMARY, AUTO INC</td>
+				<td>varchar(64)</td>
+				<td>varchar(256)</td>
+				<td>varchar(64)</td>
+			</tr>
+			<tr>
+				<td>AUTO</td>
+				<td>UNIQUE email(user) or thread_id(temp user)</td>
+				<td>password_hash()</td>
+				<td>UNIQE name, ALNUM</td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<th colspan="4">thread_data</th>
+			</tr>
+			<tr>
+				<th>thread_id</th>
+				<th>thread_owner_id</th>
+				<th>thread_name</th>
+				<th>thread_version</th>
+			</tr>
+			<tr>
+				<td>int(11), PRIMARY, AUTO INC</td>
+				<td>int(11)</td>
+				<td>varchar(32)</td>
+				<td>int(2)</td>
+			</tr>
+			<tr>
+				<td>AUTO</td>
+				<td>Owners ID(external key)</td>
+				<td>UNIQUE name, ALNUM</td>
+				<td>not in use</td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<th colspan="10">task_data</th>
+			</tr>
+			<tr>
+				<th>task_id</th>
+				<th>task_thread_id</th>
+				<th>task_user_id</th>
+				<th>task_title</th>
+				<th>task_content</th>
+				<th>task_create_timestamp</th>
+				<th>task_edit_timestamp</th>
+				<th>task_power</th>
+				<th>task_is_complete</th>
+				<th>task_is_pinned</th>
+			</tr>
+			<tr>
+				<td>int(11), PRIMARY, AUTO INC</td>
+				<td>int(11)</td>
+				<td>int(11)</td>
+				<td>varchar(127)</td>
+				<td>varchar(2024)</td>
+				<td>timestamp, DEF: current</td>
+				<td>timestamp, DEF: current</td>
+				<td>int(4), DEF: 1</td>
+				<td>tinyint(1), DEF: 0</td>
+				<td>tinyint(1), DEF: 0</td>
+			</tr>
+			<tr>
+				<td>AUTO</td>
+				<td>threads_id(external key)</td>
+				<td>authors id(external key)</td>
+				<td>UNIQUE name, ALNUM for each thread_id</td>
+				<td>htmlentities()</td>
+				<td>AUTO</td>
+				<td>not in use</td>
+				<td>1-5</td>
+				<td>not in use</td>
+				<td>not in use</td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<th colspan="9">connection_user_thread</th>
+			</tr>
+			<tr>
+				<th>connection_id</th>
+				<th>connection_user_id</th>
+				<th>connection_thread_id</th>
+				<th>connection_view_power</th>
+				<th>connection_is_owner</th>
+				<th>connection_edit_permission</th>
+				<th>connection_delete_permission</th>
+				<th>connection_create_power</th>
+				<th>connection_complete_permission</th>
+			</tr>
+			<tr>
+				<td>int(11), PRIMARY, AUTO INC</td>
+				<td>int(11)</td>
+				<td>int(11)</td>
+				<td>int(4), DEF: 5</td>
+				<td>tinyint(1) DEF: 0</td>
+				<td>tinyint(1) DEF: 0</td>
+				<td>tinyint(1) DEF: 0</td>
+				<td>int(4) DEF: 0</td>
+				<td>tinyint(1) DEF: 0</td>
+			</tr>
+			<tr>
+				<td>AUTO</td>
+				<td>user_id(external key)</td>
+				<td>thread_id(external_key)</td>
+				<td>not in use</td>
+				<td>0-1</td>
+				<td>not in use</td>
+				<td>not in use</td>
+				<td>not in use</td>
+				<td>not in use</td>
+			</tr>
+		</table>
+	</div>
+	<hr>
+	<div id="session">
+		<h2>Session variables</h2>
+		<table>
+			<tr>
+				<th colspan="2">User Data</th>
+			</tr>
+			<tr>
+				<td colspan="2">Names begin with "user_"</td>
+			</tr>
+			<tr>
+				<td>user_id</td>
+				<td>Set on login, read only</td>
+			</tr>
+			<tr>
+				<td>user_name</td>
+				<td>set on login, read only</td>
+			</tr>
+			<tr>
+				<td>user_temporary_flag</td>
+				<td>set on login, read only, FALSE for regular user, TRUE for temporary</td>
+			</tr>
+			<tr>
+				<td>user_active_thread</td>
+				<td>set on login, set to 0 if no connected threads exists, change to thread_id with thread change</td>
+			</tr>
+		</table>
+		
+		<table>
+			<tr>
+				<th colspan="2">ERRORS</th>
+			</tr>
+			<tr>
+				<td colspan="2">Naming scheme: error_origin_file_name, clear after displayed</td>
+			</tr>
+			<tr>
+				<td>error_login</td>
+				<td>Destination: index.php</td>
+			</tr>
+			<tr>
+				<td>error_register</td>
+				<td>Destination: index.php</td>
+			</tr>
+			<tr>
+				<td>error_create_thread</td>
+				<td>Destination: panel.php</td>
+			</tr>
+			<tr>
+				<td>error_change_active_thread</td>
+				<td>Destination: panel.php</td>
+			</tr>
+			<tr>
+				<td>error_task_delete</td>
+				<td>Destination: panel.php</td>
+			</tr>
+			<tr>
+				<td>error_create_task</td>
+				<td>Destination: panel.php</td>
+			</tr>
+			<tr>
+				<td>error_thread_delete</td>
+				<td>Destination: settings.php</td>
+			</tr>
+			<tr>
+				<td>TO DO</td>
+				<td><span style="color: red;">error_add_user, later change errors with just one error and addition function</span></td>
+			</tr>
+		</table>
+	</div>
+	<hr>
+	<div id="users">
+		<h2>Users types</h2>
+		<table>
+			<tr>
+				<th>Type</th>
+				<th>Access Deny</th>
+				<th>Data</th>
+			</tr>
+			<tr>
+				<td>Not logged in</td>
+				<td>all but index.php, register.php, login.php</td>
+				<td>none</td>
+			</tr>
+			<tr>
+				<td>Regular</td>
+				<td>index.php, register.php</td>
+				<td>
+					set SESSION values on login(check <a href="#session">Session Variables</a>)<br>
+					<span style="color: red;">TODO: set flag for thread ownership</span>
+				</td>
+			</tr>
+			<tr>
+				<td>Temporary</td>
+				<td>all but panel.php, create_task.php, task_delete.php</td>
+				<td>
+					set SESSION variables on login<br>
+					temporary user flag set to TRUE
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="index">
+		<h2>index.php</h2>
+		<p class="status-to-do">
+			TODO: Footer links: contact, about etc.
+		</p>
+		<p>
+			<table>
+				<tr>
+					<th>Access</th>
+					<th>Directions</th>
+					<th>Input data</th>
+				</tr>
+				<tr class="status-ok">
+					<td>Not logged in</td>
+					<td><b>login.php:</b> login(alnum), password<br><b>register.php:</b> login(3-20 alnum),email(email format), password(8-48 1(A-Z) 1(a-z) 1(1-9)), ToS, reCaptcha<br>ToS.pdf</td>
+					<td>Error, message, form return data</td>
+				</tr>
+			</table>
+		</p>
+	</div>
+	<div id="login">
+		<h2>login.php</h2>
+		<p>
+			<table>
+				<tr>
+					<th>Access</th>
+					<th>Directions</th>
+					<th>Input data</th>
+				</tr>
+				<tr class="status-ok">
+					<td>Not logged in</td>
+					<td><b>panel.php:</b> set _SESSION values for user<br><b>index.php:</b> set return values in _SESSION, set _SESSION(error_login)</td>
+					<td><b>Password</b> password_verify<br><b>email/login</b> filter_var(email)/login->alnum</td>
+				</tr>
+			</table>
+	</div>	
+	<div id="register">
+		<h2>register.php</h2>
+		<p>
+			<table>
+				<tr>
+					<th>Access</th>
+					<th>Directions</th>
+					<th>Input data</th>
+				</tr>
+				<tr class="status-ok">
+					<td>Not logged in</td>
+					<td><b>index.php:</b> on success set message<br>on fail set error and form return values</td>
+					<td>
+						<b>login: </b>alnum, strlen 3-20, unique<br>
+						<b>email: </b>filter_var(email), uniqe<br>
+						<b>password: </b>strlen 8-48, preg_match(a-z, A-Z, 1-9) -> password_hash<br>
+						<b>password_confirm: </b>compare with password<br>
+						<b>recaptcha: </b>true<br>
+						<b>tos_accept: </b>isset<br>
+						
+					</td>
+				</tr>
+			</table>
+		</p>
+	</div>
+	<div id="panel">
+		<h2>panel.php</h2>
+		<p>
+			<table>
+				<tr>
+					<th>Access</th>
+					<th>Directions</th>
+					<th>Input data</th>
+				</tr>
+				<tr class="status-ok">
+					<td>Regular(owner)</td>
+					<td>
+						<b class="status-ok">logout.php</b><br>
+						<b class="status-ok">change_active_thread.php: </b>send thread_id<br>
+						<b class="status-ok">create_thread.php: </b>send name(unique, alnum 3-24) and version(0-1)<br>
+						<b class="status-ok">create_task.php: </b><span class="status-to-do">send name(alnum 3-64), content(alnum, 0-1900)</span>, power(1-5)<br>
+						<b class="status-ok">task_delete.php: </b>send task_id<br>
+						<b class="status-ok">settings.php</b><br>
+					</td>
+					<td>_SESSION user, error, message data</td>
+				</tr>
+				<tr class="status-ok">
+					<td>Regular(guest)</td>
+					<td>
+						<b class="status-ok">logout.php</b><br>
+						<b class="status-ok">change_active_thread.php: </b>send thread_id<br>
+						<b class="status-ok">create_thread.php: </b>send name(unique, alnum 3-24) and version(0-1)<br>
+						<b class="status-ok">create_task.php: </b><span class="status-to-do">send name(alnum 3-64), content(alnum, 0-1900)</span>, power(1-5)<br>
+						Visible if create power high enough<br>
+						<b class="status-ok">task_delete.php: </b>send task_id<br>
+						Visible if has permission<br>
+						<b class="status-ok">settings.php</b><br>
+					</td>
+					<td>_SESSION user, error, message data</td>
+				</tr>
+				<tr class="status-ok">
+					<td>Temporary</td>
+					<td>
+						<b class="status-ok">logout.php</b><br>
+						<b class="status-ok">create_task.php: </b><span class="status-to-do">send name(alnum 3-64), content(alnum, 0-1900)</span>, power(1-5)<br>
+						Visible if create power high enough<br>
+						<b class="status-ok">task_delete.php: </b>send task_id<br>
+						Visible if has permission<br>
+					</td>
+					<td>_SESSION user, error, message data</td>
+				</tr>
+			</table>
+		</p>
+	</div>
+	<div id="create-task">
+		<h2>create_task.php</h2>
+		<p class="status-to-do">Unique names(?)</p>
+		<p>
+			<table>
+				<tr>
+					<th>Access</th>
+					<th>Directions</th>
+					<th>Input Data</th>
+				</tr>
+				<tr class="status-ok">
+					<td>Regular(owner)</td>
+					<td><b>panel.php</b><br>
+					On success - no action needed<br>
+					On fail - send error msg</td>
+					<td><span class="status-to-do">Name(3-64),Content(0-1900),</span> power(1-5)</td>
+				</tr>
+				<tr class="status-ok">
+					<td>Regular(guest)</td>
+					<td><b>panel.php</b><br>
+					On success - no action needed<br>
+					On fail - send error msg</td>
+					<td><span class="status-to-do">Name(3-64),Content(0-1900),</span> power(1-5)<br>
+					Check if has permission to create tasks</td>
+				</tr>
+				<tr class="status-ok">
+					<td>Regular(owner)</td>
+					<td><b>panel.php</b><br>
+					On success - no action needed<br>
+					On fail - send error msg</td>
+					<td><span class="status-to-do">Name(3-64),Content(0-1900),</span> power(1-5)<br>
+					Check if has permission to create tasks</td>
+				</tr>
+			</table>
+		</p>
+	</div>
+	<div id="task-delete">
+		<h2>task_delete.php</h2>
+		<p class="status-to-do">
+			beware to split deletion of own and others tasks
+		</p>
+		<p>
+			<table>
+				<tr>
+					<th>Access</th>
+					<th>Directions</th>
+					<th>Input Data</th>
+				</tr>
+				<tr class="status-ok">
+					<td>Regular(owner)</td>
+					<td><b>panel.php: </b> on fail return values<br>
+					On success no action needed</td>
+					<td>task id -> alnum -> intval<br>
+					Check for ownership, check if thread/task exists</td>
+				</tr>
+				<tr class="status-ok">
+					<td>Regular(guest)</td>
+					<td><b>panel.php: </b> on fail return values<br>
+					On success no action needed</td>
+					<td>task id -> alnum -> intval<br>
+					Check for permission to delete, check if thread/task exists</td>
+				</tr>
+				<tr class="status-ok">
+					<td>Temporary</td>
+					<td><b>panel.php: </b> on fail return values<br>
+					On success no action needed</td>
+					<td>task id -> alnum -> intval<br>
+					Check for permission to delete, check if thread/task exists</td>
+				</tr>
+			</table>
+		</p>
+	</div>
+	<div id="change-active-thread">
+		<h2>change_active_thread.php</h2>
+		<p>
+			<table>
+				<tr>
+					<th>Access</th>
+					<th>Directions</th>
+					<th>Input Data</th>
+				</tr>
+				<tr class="status-ok">
+					<td>Regular User</td>
+					<td><b>panel.php: </b>on fail - send error<br>
+					on success no action needed</td>
+					<td>thread_id -> intval</td>
+				</tr>
+			</table>
+		</p>
+	</div>
+	<div id="create-thread">
+		<h2>create_thread.php</h2>
+		<p>
+			<table>
+				<tr>
+					<th>Access</th>
+					<th>Directions</th>
+					<th>Input Data</th>
+				</tr>
+				<tr class="status-ok">
+					<td>Regular User</td>
+					<td>panel.php: on fail return name</td>
+					<td><b class="status-to-do">Thread name: </b>3-24<br>
+					<b>Thread version: </b>0: simple 1: pro<br>
+					Max 10 ownership</td>
+				</tr>
+			</table>
+		</p>
+	</div>
+	<div id="thread-delete">
+		<h2>thread_delete.php</h2>
+		<p>
+			<table>
+				<tr>
+					<th>Access</th>
+					<th>Directions</th>
+					<th>Input data</th>
+				</tr>
+				<tr class="status-ok">
+					<td>User(owner)</td>
+					<td><b>settings.php: </b>On success show message<br>on fail display error</td>
+					<td>thread_id - destroy all thread data: connections, temporary users, tasks within thread and thread itself</td>
+				</tr>
+				<tr class="status-ok">
+					<td>User(Guest)</td>
+					<td><b>settings.php: </b>On success show message<br>on fail display error</td>
+					<td>thread_id - remove connection with thread</td>
+				</tr>
+			</table>
+		</p>
+	</div>
+	<div id="add-user">
+		<h2>add_user.php</h2>
+		<p class="status-to-do">only works to add temporary users, later on add regular user option<br>
+		Error sending<br>
+		Message sending<br>
+		Return values on error(tricky one, change tab)
+		</p>
+		<p>
+			<table>
+				<tr>
+					<th>Access</th>
+					<th>Directions</th>
+					<th>Input data</th>
+				</tr>
+				<tr class="status-ok">
+					<td>User(owner)</td>
+					<td>settings.php</td>
+					<td class="status-to-do">user_name - alnum, user_password - no req.</td>
+				</tr>
+			</table>
+		</p>
+	</div>
+	<div id="settings">
+		<h2>settings.php</h2>
+		<p>
+			<table>
+				<tr>
+					<th>Access</th>
+					<th>Tabs</th>
+					<th>Directions</th>
+					<th>Input Data</th>
+				</tr>
+				<tr class="status-ok">
+					<td>User(owner)</td>
+					<td>
+						<b>Threads</b><br>
+						<b>Thread options</b><br>
+						<b>User</b><br>
+					</td>
+					<td>
+						<b>panel.php</b><br>
+						<b>logout.php</b><br>
+						<b>settings.php(thread): </b>thread id in GET data<br>
+						<b>thread_delete.php:</b> thread id in GET data<br>
+						<b>add_user.php: </b><span class="status-to-do">send name and password</span><br>
+					</td>
+					<td>thread_id if going to thread tab</td>
+				</tr>
+				<tr class="status-ok">
+					<td>User(guest)</td>
+					<td>
+						<b>Threads</b><br>
+						<b>Thread options</b><span class="status-to-do"> - only show users</span><br>
+						<b>User</b><br>
+					</td>
+					<td>
+						<b>panel.php</b><br>
+						<b>logout.php</b><br>
+						<b>settings.php(thread): </b>thread id in GET data<br>
+						<b>thread_delete.php:</b> thread id in GET data<br>
+						<b>add_user.php: </b><span class="status-to-do">send name and password</span><br>
+					</td>
+					<td>thread_id if going to thread tab</td>
+				</tr>
+			</table>
+		</p>
+	</div>
+</body>
+</html>
