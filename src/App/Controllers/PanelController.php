@@ -4,19 +4,18 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Services\UserService;
 use Framework\TemplateEngine;
 
-class AuthController {
+class PanelController{
     public function __construct(
-        private UserService $userService,
         private TemplateEngine $view
     )
     {
         
     }
 
-    public function viewLogin(){
-        echo $this->view->render('/login.php');
+    public function view()
+    {
+        echo "Logged";
     }
 }
