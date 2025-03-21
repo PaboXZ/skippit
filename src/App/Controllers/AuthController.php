@@ -19,4 +19,9 @@ class AuthController {
     public function viewLogin(){
         echo $this->view->render('/login.php');
     }
+
+    public function actionLogin(){
+        $this->userService->login($_POST);
+        redirectTo('/login');
+    }
 }

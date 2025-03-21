@@ -12,5 +12,6 @@ use App\Middlewares\{GuestOnlyMiddleware, UserOnlyMiddleware};
 function registerRoutes(App $app){
     $app
         ->get('/login', [AuthController::class, 'viewLogin'])->addRouteMiddleware(GuestOnlyMiddleware::class)
+        ->post('/login', [AuthController::class, 'actionLogin'])->addRouteMiddleware(GuestOnlyMiddleware::class)
         ->get('/', [PanelController::class, 'view'], [UserOnlyMiddleware::class]);
 }

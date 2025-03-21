@@ -3,14 +3,23 @@
   --background: Ivory;
 
   /*Standard Form*/
-  --form-border-color: black;
+  --form-border-color: rgb(63, 63, 63);
   --form-font-color: black;
   --form-bg-color: white;
-  --form-border-hover-color: yellow;
+  --form-border-hover-color: gray;
 
-  --form-submit-bg-color: blue;
-  --form-submit-color: darkblue;
-  --form-submit-border: red;
+  --form-submit-bg-color: Green;
+  --form-submit-bg-color-hover: rgb(5, 107, 5);
+  --form-submit-color: Ivory;
+  --form-submit-border: rgb(6, 163, 6);
+  --form-submit-border-hover: rgb(5, 109, 5);
+
+  --button-background: green;
+  --button-color: ivory;
+
+  --reverse-button-color: var(--button-background);
+  --reverse-button-color-hover: var(--form-submit-bg-color-hover);
+  --reverse-button-bg: inherit;
 
   --topnav-button-text: white;
   --topnav-button-background: Green;
@@ -30,6 +39,7 @@
 body {
   margin: 0;
   color: var(--font-color);
+  font-family: "Lato", sans-serif;
   background-color: var(--background);
 }
 a {
@@ -52,19 +62,79 @@ a {
   border: 1px solid var(--form-border-color);
   color: var(--form-font-color);
   background-color: var(--form-bg-color);
+  border-radius: 4px;
 }
 .form-standard > input:hover {
   border: 1px solid var(--form-border-hover-color);
 }
 
 .form-standard > input[type="submit"] {
+  background-color: var(--form-submit-bg-color);
   border: 1px solid var(--form-submit-border);
   color: var(--form-submit-color);
-  background-color: var(--form-submit-bg-color);
+  font-size: 1.1em;
+  font-weight: 600;
+  letter-spacing: 0.1ch;
+  cursor: pointer;
 }
 .form-standard > input[type="submit"]:hover {
-  border: 1px solid black;
+  border: 1px solid var(--form-submit-border-hover);
+  background-color: var(--form-submit-bg-color-hover);
 }
+
+/*Boxes*/
+.small-box-centered {
+  width: 300px;
+  margin: auto;
+  padding: 1em;
+}
+
+/*Buttons*/
+.button {
+  background-color: var(--form-submit-bg-color);
+  border: 1px solid var(--form-submit-border);
+  color: var(--form-submit-color);
+  font-size: 1.1em;
+  font-weight: 600;
+  letter-spacing: 0.1ch;
+  cursor: pointer;
+}
+.reverse-button {
+  text-align: center;
+  color: var(--reverse-button-color);
+  border-radius: 4px;
+  cursor: pointer;
+  font-variant: small-caps;
+  font-size: 1.1em;
+  font-weight: 600;
+  letter-spacing: 0.2ch;
+}
+.reverse-button:hover {
+  color: var(--reverse-button-color-hover);
+}
+
+/*Tiles*/
+.bg-tile {
+  background-color: var(--background);
+  border-radius: 3px;
+}
+
+/*Text transform*/
+.center {
+  text-align: center;
+}
+.text-huge {
+  font-size: 4em;
+  font-weight: 700;
+  letter-spacing: 0.1ch;
+}
+.text-mid {
+  font-size: 1.4em;
+  font-weight: 600;
+  letter-spacing: 0.1ch;
+}
+
+/*Dialog boxes*/
 
 /*Deprecated code underneath*/
 
