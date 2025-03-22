@@ -19,10 +19,10 @@ class ValidatorService {
 
     public function validateRegister(array $data){
         $this->validator->validate($data, [
-            'login' => ['required', 'lengthIn:3,20'],
+            'login_r' => ['required', 'lengthIn:3,20'],
             'email' => ['required', 'isEmail'],
-            'password' => ['required', 'lengthIn:8,64', 'containsCharacterSet:aA1#'],
-            'passwordConfirm' => ['required', 'matches:password'],
+            'password_r' => ['required', 'lengthIn:8,64', 'containsCharacterSet:aA1#'],
+            'password_confirm' => ['required', 'matches:password_r'],
             'tos' => ['required']
         ]);
         
@@ -32,18 +32,6 @@ class ValidatorService {
         $this->validator->validate($data, [
             'login' => ['required'],
             'password' => ['required']
-        ]);
-    }
-
-    public function validateAddPassword(array $data){
-        $this->validator->validate($data, [
-            'passwordName' => ['required', 'lengthIn:3,20']
-        ]);
-    }
-
-    public function validateEditPasswordName(array $data){
-        $this->validator->validate($data, [
-            'passwordName' => ['lengthIn:3,20']
         ]);
     }
 }

@@ -13,5 +13,7 @@ function registerRoutes(App $app){
     $app
         ->get('/login', [AuthController::class, 'viewLogin'])->addRouteMiddleware(GuestOnlyMiddleware::class)
         ->post('/login', [AuthController::class, 'actionLogin'])->addRouteMiddleware(GuestOnlyMiddleware::class)
+        ->post('/register', [AuthController::class, 'actionRegister'])->addRouteMiddleware(GuestOnlyMiddleware::class)
+        ->get('/logout', [AuthController::class, 'actionLogout'])
         ->get('/', [PanelController::class, 'view'], [UserOnlyMiddleware::class]);
 }

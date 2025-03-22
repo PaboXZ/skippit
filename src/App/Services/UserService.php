@@ -22,10 +22,10 @@ class UserService {
     }
 
     public function create(array $data){
-        $passwordHash = password_hash($data['password'], PASSWORD_BCRYPT, ['cost' => 12]);
+        $passwordHash = password_hash($data['password_r'], PASSWORD_BCRYPT, ['cost' => 12]);
 
         $this->database->query("INSERT INTO users (login, email, password_hash) VALUE (:login, :email, :passwordHash)", [
-            'login' => $data['login'],
+            'login' => $data['login_r'],
             'email' => $data['email'],
             'passwordHash' => $passwordHash
         ]);
@@ -37,6 +37,10 @@ class UserService {
     
     public function getUserByID(string $userID){
         return $this->database->query("SELECT * FROM users WHERE id = :userID", ['userID' => $userID])->find();
+    }
+
+    public function logout(){
+        session_destroy();
     }
 
     public function login(array $data){
@@ -59,8 +63,8 @@ class UserService {
         
         $errors = [];
 
-        if($this->isLoginTaken($data['login']))
-            $errors['login'][] = "Login already taken";
+        if($this->isLoginTaken($data['login_r']))
+            $errors['login_r'][] = "Login already taken";
 
         if($this->isEmailTaken($data['email']))
             $errors['email'][] = "Email already registered";
@@ -69,6 +73,8 @@ class UserService {
             throw new ValidatorException($errors);
 
         $this->create($data);
+
+        $_SESSION['message'] = "Account created. You can log in now.";
 
         session_regenerate_id();
     }
