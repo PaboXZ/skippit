@@ -89,6 +89,10 @@ a {
 }
 
 /*Boxes*/
+.big-box {
+  margin: 1em auto;
+  width: 1200px;
+}
 .small-box-centered {
   width: 300px;
   margin: auto;
@@ -110,13 +114,19 @@ a {
 
 /*Buttons*/
 .button {
+  padding: 0.5em;
   background-color: var(--form-submit-bg-color);
   border: 1px solid var(--form-submit-border);
+  border-radius: 4px;
   color: var(--form-submit-color);
   font-size: 1.1em;
   font-weight: 600;
   letter-spacing: 0.1ch;
+  text-align: center;
   cursor: pointer;
+}
+.button:hover {
+  background-color: var(--reverse-button-color-hover);
 }
 .reverse-button {
   text-align: center;
@@ -173,21 +183,23 @@ a {
   cursor: pointer;
 }
 
-/*Deprecated code underneath*/
+/*Topbar*/
 
-#topbar {
-  position: sticky;
-  top: 0;
-  z-index: 95;
-  padding: calc(5px + 1vh);
-  border-bottom: 2px solid var(--topnav-button-background);
-  background-color: var(--background);
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4em 0.4em 0.4em 1em;
 }
-#topbar .logo {
-  font-size: 36px;
-  font-weight: 900;
-  color: black;
+.topbar > .right {
+  display: flex;
+  gap: 1em;
 }
+.topbar > .logo {
+  font-size: 2em;
+  font-weight: 700;
+}
+
+/*Deprecated code underneath*/
 
 .topnav-button {
   padding: 14px 0;

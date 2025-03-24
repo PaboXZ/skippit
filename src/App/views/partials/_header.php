@@ -4,8 +4,12 @@
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<link rel="stylesheet" href="assets/css/main.css"/>
-	<link rel="stylesheet" href="assets/css/index.style.css"/>
 	<link rel="stylesheet" href="assets/css/fontello.css"/>
+
+	<?php if(isset($styles)):
+	foreach($styles as $style): ?>
+	<link rel="stylesheet" href="<?=$style?>"/>
+	<?php endforeach; endif;?>
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -16,6 +16,13 @@ class PanelController{
 
     public function view()
     {
-        echo "Logged";
+        //Sprawdzić aktywny wątek, rodzaj konta, zezwolenia w aktywnym wątku
+        //Pobrać wpisy z aktywnego wątku z uwzględnieniem uprawnień			
+        /*
+			Pobranie ulubionych wątków z bazy danych
+			Print wątków do panelu bocznego HTML
+		*/
+        $this->view->addGlobal('styles', ['/assets/css/task.css', '/assets/css/thread.css']);
+        echo $this->view->render('/panel.php');
     }
 }
