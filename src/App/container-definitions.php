@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Framework\{TemplateEngine, Container, Validator};
 use App\Config\Paths;
-use App\Services\{PasswordsService, UserService, ValidatorService};
+use App\Services\{ThreadService, UserService, ValidatorService};
 use Framework\Database;
 
 return [
@@ -23,5 +23,9 @@ return [
     ValidatorService::class => function (Container $container) {
         $validator = $container->get(Validator::class);
         return new ValidatorService($validator);
+    },
+    ThreadService::class => function (Container $container) {
+        $database = $container->get(Database::class);
+        return new ThreadService($database);
     }
 ];

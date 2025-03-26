@@ -29,17 +29,18 @@
             //LOOP FOR TASK COUNT
             //POWER NEEDED
             ?>
-            
-            <div class="task-show task-power-5">
-                <div class="task-title">Task Title</div>
-                <div class="task-title-menu" onclick="showTaskMenu('task-title')">
-                    <i class="icon-menu"></i>
-                    <ul class="task-menu-list" id="task-menu-list-task-title">
-                        <li onclick="deleteTask('task-title', 'task-id')">Usuń wpis</li>
-                    </ul>
-                </div>
+            <div class="two-column">
                 <div class="task-show task-power-5">
-                    <div class="task-content">Content</div>
+                    <div class="task-title">Task Title</div>
+                    <div class="task-title-menu" onclick="showTaskMenu('task-title')">
+                        <i class="icon-menu"></i>
+                        <ul class="task-menu-list" id="task-menu-list-task-title">
+                            <li onclick="deleteTask('task-title', 'task-id')">Usuń wpis</li>
+                        </ul>
+                    </div>
+                    <div class="task-show task-power-5">
+                        <div class="task-content">Content</div>
+                </div>
             </div>
         </div>
     </main>

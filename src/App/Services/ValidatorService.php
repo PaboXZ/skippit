@@ -21,7 +21,7 @@ class ValidatorService {
         $this->validator->validate($data, [
             'login_r' => ['required', 'lengthIn:3,20'],
             'email' => ['required', 'isEmail'],
-            'password_r' => ['required', 'lengthIn:8,64', 'containsCharacterSet:aA1#'],
+            'password_r' => ['required', 'lengthIn:8,64'],
             'password_confirm' => ['required', 'matches:password_r'],
             'tos' => ['required']
         ]);

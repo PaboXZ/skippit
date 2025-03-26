@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Services\ThreadService;
 use Framework\TemplateEngine;
 
 class PanelController{
     public function __construct(
-        private TemplateEngine $view
+        private TemplateEngine $view,
+        private ThreadService $threads
     )
     {
         
@@ -24,5 +26,10 @@ class PanelController{
 		*/
         $this->view->addGlobal('styles', ['/assets/css/task.css', '/assets/css/thread.css']);
         echo $this->view->render('/panel.php');
+        $this->threads->create('JEDEN');
+    }
+
+    public function createThread(){
+
     }
 }

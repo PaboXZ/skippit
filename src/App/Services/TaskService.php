@@ -4,6 +4,14 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-class TaskService {
+use Framework\Database;
+
+class TaskService 
+{
+    public function __construct(
+        private Database $db)
+    {
+        
+    }
     
 }

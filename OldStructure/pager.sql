@@ -27,16 +27,17 @@ SET time_zone = "+00:00";
 -- Struktura tabeli dla tabeli `connection_user_thread`
 --
 
-CREATE TABLE `connection_user_thread` (
-  `connection_id` int(11) NOT NULL,
-  `connection_user_id` int(11) NOT NULL,
-  `connection_thread_id` int(11) NOT NULL,
-  `connection_view_power` int(4) NOT NULL DEFAULT 5,
-  `connection_is_owner` tinyint(1) NOT NULL DEFAULT 0,
-  `connection_edit_permission` tinyint(1) NOT NULL DEFAULT 0,
-  `connection_delete_permission` tinyint(1) NOT NULL DEFAULT 0,
-  `connection_create_power` int(4) NOT NULL DEFAULT 0,
-  `connection_complete_permission` tinyint(1) NOT NULL DEFAULT 0
+CREATE TABLE IF NOT EXISTS `connection_user_thread` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `thread_id` int(11) NOT NULL,
+  `view_power` int(4) NOT NULL DEFAULT 5,
+  `is_owner` tinyint(1) NOT NULL DEFAULT 0,
+  `edit_permission` tinyint(1) NOT NULL DEFAULT 0,
+  `delete_permission` tinyint(1) NOT NULL DEFAULT 0,
+  `create_power` int(4) NOT NULL DEFAULT 0,
+  `complete_permission` tinyint(1) NOT NULL DEFAULT 0
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -45,17 +46,17 @@ CREATE TABLE `connection_user_thread` (
 -- Struktura tabeli dla tabeli `task_data`
 --
 
-CREATE TABLE `task_data` (
-  `task_id` int(11) NOT NULL,
-  `task_thread_id` int(11) NOT NULL,
-  `task_user_id` int(11) NOT NULL,
-  `task_title` varchar(127) NOT NULL,
-  `task_content` varchar(2024) NOT NULL,
-  `task_create_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
-  `task_edit_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
-  `task_power` int(4) NOT NULL DEFAULT 1,
-  `task_is_complete` tinyint(1) NOT NULL DEFAULT 0,
-  `task_is_pinned` tinyint(1) NOT NULL DEFAULT 0
+CREATE TABLE `tasks` (
+  `id` int(11) NOT NULL,
+  `thread_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `title` varchar(127) NOT NULL,
+  `content` varchar(2024) NOT NULL,
+  `create_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `edit_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `power` int(4) NOT NULL DEFAULT 1,
+  `is_complete` tinyint(1) NOT NULL DEFAULT 0,
+  `is_pinned` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -64,11 +65,10 @@ CREATE TABLE `task_data` (
 -- Struktura tabeli dla tabeli `thread_data`
 --
 
-CREATE TABLE `thread_data` (
-  `thread_id` int(11) NOT NULL,
-  `thread_owner_id` int(11) NOT NULL,
-  `thread_name` varchar(32) NOT NULL,
-  `thread_version` int(2) NOT NULL DEFAULT 0
+CREATE TABLE `threads` (
+  `id` int(11) NOT NULL,
+  `owner_id` int(11) NOT NULL,
+  `name` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -77,12 +77,11 @@ CREATE TABLE `thread_data` (
 -- Struktura tabeli dla tabeli `user_data`
 --
 
-CREATE TABLE `user_data` (
-  `user_id` int(11) NOT NULL,
-  `user_email` varchar(64) NOT NULL,
-  `user_password` varchar(256) NOT NULL,
-  `user_name` varchar(64) NOT NULL,
-  `user_is_admin` tinyint(1) NOT NULL DEFAULT 0,
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `email` varchar(64) NOT NULL,
+  `password` varchar(256) NOT NULL,
+  `name` varchar(64) NOT NULL,
   `user_last_active` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

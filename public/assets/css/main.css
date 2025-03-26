@@ -103,6 +103,10 @@ a {
   position: relative;
   top: 20vh;
 }
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
 
 .message-display {
   display: flex;
