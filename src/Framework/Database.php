@@ -33,7 +33,7 @@ class Database {
         return $this;
     }
     
-    public function count(){
+    public function recordExists(){
         return $this->statement->fetchColumn();
     }
 
@@ -43,5 +43,9 @@ class Database {
 
     public function findAll(){
         return $this->statement->fetchAll();
+    }
+
+    public function count(){
+        return $this->statement->rowCount();
     }
 }

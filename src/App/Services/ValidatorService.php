@@ -34,4 +34,10 @@ class ValidatorService {
             'password' => ['required']
         ]);
     }
+
+    public function validateThread(array $data){
+        $this->validator->validate($data, [
+            'thread_name' => ['required', 'lengthIn:3,20']
+        ]);
+    }
 }

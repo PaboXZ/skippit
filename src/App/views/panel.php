@@ -10,7 +10,7 @@
             <a href="/logout" id="logout-button"><div class="button">Log out <i class="icon-off"></i></div></a>
         </div>
     </div>
-	
+	<?php include $this->resolve('/partials/_message_display.php');?>
     <nav class="sidemenu" id="sidemenu">
         <ul>
             <!--Wątek aktywny-->
@@ -92,20 +92,17 @@
 	
 	<!--Add thread box-->
 	<aside>
-		<div class="blur-background" id="add-thread" style="<?=isset($create_thread_return_style) ? $create_thread_return_style : ""?>">
-            <div class="dialog-box">
-                <div class="dialog-box-title">Tworzenie listy</div>
-                <div class="dialog-box-title dialog-box-close" onclick="closeDialogBox('add-thread')"><i class="icon-cancel"></i></div>
-                <form action="create_thread.php" method="POST">
-                    <label for="thread_name">Nazwa listy:</label>
-                    <input type="text" name="thread_name" value="<?=isset($create_thread_name_r) ? $create_thread_name_r : ""?>"/>
-                    <label for="thread_version">Wersja:</label>
-                    <select name="thread_version">
-                        <optgroup label="Version">
-                            <option value="simple">Simple</option>
-                            <option value="pro">Pro</option>
-                        </optgroup>
-                    </select>
+		<div class="blur-background" id="add-thread" style="<?= isset($oldFormData['thread_name']) ? "display: block;" : "" ?>">
+            <div class="small-box-centered valign-20 bg-tile">
+                <div class="dialog-box-close" onclick="closeDialogBox('add-thread')"><i class="icon-cancel dialog-box-close-ico"></i></div>
+                <form class="form-standard" action="/create-thread" method="POST">
+                    <div class="text-mid">Create Thread</div><br>    
+                    <label for="thread_name">Thread's Name:</label>
+                    <input type="text" name="thread_name" value="<?=isset($oldFormData['thread_name']) ? e($oldFormData['thread_name']) : ""?>"/>
+                    <?php if(isset($errors['thread_name'])) :?>
+                    <div class="form-error-message"><?=e($errors['thread_name'][0])?></div>
+                    <?php endif; ?>
+                    <?php include $this->resolve('/partials/_csrf.php'); ?>
                     <input type="submit" value="Utwórz"/>
                 </form>
             </div>

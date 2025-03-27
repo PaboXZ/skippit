@@ -9,7 +9,7 @@
         </div>
         <div class="small-box-centered">
             <form class="form-standard" action="/login" method="POST">
-                <input value="<?=isset($oldFormData['login']) ? $oldFormData['login'] : ""?>" type="text" placeholder="login" name="login" onfocus="this.placeholder=''" onblur="this.placeholder='login'"/>
+                <input value="<?=isset($oldFormData['login']) ? e($oldFormData['login']) : ""?>" type="text" placeholder="login" name="login" onfocus="this.placeholder=''" onblur="this.placeholder='login'"/>
                 
                 <?php if(isset($errors['login'])) :?>
                 <div class="form-error-message"><?=$errors['login'][0]?></div>
@@ -36,13 +36,13 @@
             </div>
             <form class="form-standard" id="register-form" action="/register" method="POST">
                 <h4>Register</h4>
-                <input value="<?= isset($oldFormData['login_r']) ? $oldFormData['login_r'] : ""?>" type="text" name="login_r" placeholder="login"/>
+                <input value="<?= isset($oldFormData['login_r']) ? e($oldFormData['login_r']) : ""?>" type="text" name="login_r" placeholder="login"/>
 
                 <?php if(isset($errors['login_r'])): ?>
                     <div class="form-error-message"><?=$errors['login_r'][0]?></div>
                 <?php endif;?>
 
-                <input value="<?= isset($oldFormData['email']) ? $oldFormData['email'] : ""?>"type="text" name="email" placeholder="email"/>
+                <input value="<?= isset($oldFormData['email']) ? e($oldFormData['email']) : ""?>"type="text" name="email" placeholder="email"/>
                 
                 <?php if(isset($errors['email'])): ?>
                     <div class="form-error-message"><?=$errors['email'][0]?></div>
