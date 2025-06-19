@@ -1,0 +1,78 @@
+/*Requires task.css*/
+
+
+.sidemenu
+{
+	left: 0;
+	width: 200px;
+	position: fixed;
+	z-index: 70;
+	max-height: 80vh;
+	white-space: nowrap;
+	overflow-x: hidden;
+	overflow-y: auto;
+	text-overflow: ellipsis;
+}
+
+nav ul
+{
+	padding: 0;
+	margin: calc(2em + 10px) 0;
+	list-style-type: none;
+	text-align: center;
+}
+nav ul li
+{
+	border-color: rgba(255,255,255, 0.5);
+	border-style: solid;
+	border-width: 0 2px 0 0;
+}
+nav ul li:first-child
+{
+	border-radius: 0 30px 0 0;
+	border-width: 2px 2px 0 0;
+}
+nav ul li:last-child
+{
+	border-width: 0 2px 2px 0;
+}
+nav .active-thread
+{
+	background-color: var(--topnav-button-background);
+	
+}
+nav .inactive-thread
+{
+	background-color: var(--topnav-button-background);
+	filter: grayscale(50%);
+}
+nav .inactive-thread:hover
+{
+	filter: grayscale(0%);
+}
+nav ul a
+{
+	padding: 3vh 0;
+	width: 100%;
+	color: white;
+	text-decoration: none;
+	display: inline-block;
+}
+#thread-active-name
+{
+	padding: 20px;
+	text-align: center;
+	font-size: 300%;
+	font-weight: 900;
+}
+
+#create-thread
+{
+	color: var(--topnav-button-background);
+	background-color: var(--background);
+	cursor: pointer;
+}
+#create-thread:hover
+{
+	filter: grayscale(100%);
+}

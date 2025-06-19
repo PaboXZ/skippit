@@ -1,5 +1,2 @@
-/bootstrap
-/PHPMailer
-/mail.php
-/test.php
-/php-script/mail_credentials.php
+/vendor/
+.env
