@@ -18,5 +18,8 @@ function registerRoutes(App $app){
 
     $app
         ->get('/', [PanelController::class, 'view'], [UserOnlyMiddleware::class])
-        ->post('/create-thread', [PanelController::class, 'createThread'], [UserOnlyMiddleware::class]);
+        ->post('/create-thread', [PanelController::class, 'createThread'], [UserOnlyMiddleware::class])
+        ->get('/change-thread/{id}', [PanelController::class, 'changeThread'], [UserOnlyMiddleware::class]);
+    $app
+        ->post('/create-task', [PanelController::class, 'createTask'], [UserOnlyMiddleware::class]);
 }

@@ -26,18 +26,11 @@
   --topnav-button-background: Green;
   --topnav-button-hover: #009000;
 
-  --input-field-color: SkyBlue;
-  --input-field-text: white;
-  --input-field-placeholder: DarkBlue;
-  --input-submit-warning: DarkRed;
-  --input-submit-color: Green;
-  --input-submit-text: white;
-  --input-submit-hover: #009000;
-
   --area-color: SeaGreen;
   --area-font-color: White;
 }
 body {
+  box-sizing: border-box;
   margin: 0;
   color: var(--font-color);
   font-family: "Lato", sans-serif;
@@ -89,6 +82,20 @@ a {
 }
 
 /*Boxes*/
+#page-container {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 2.5rem;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  margin-left: 2rem;
+  height: 2.5rem;
+  width: 100%;
+}
+
 .big-box {
   margin: 1em auto;
   width: 1200px;
@@ -103,8 +110,14 @@ a {
   position: relative;
   top: 20vh;
 }
+.valign-5 {
+  position: relative;
+  top: 5vh;
+}
+
 .two-column {
   display: grid;
+  gap: 1rem;
   grid-template-columns: 1fr 1fr;
 }
 

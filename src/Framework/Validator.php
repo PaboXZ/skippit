@@ -15,7 +15,8 @@ class Validator {
     }
 
     public function addRule(string $name, RuleInterface $rule){
-        $this->rules[$name] = $rule; 
+        $this->rules[$name] = $rule;
+        return $this;
     }
 
     public function validate(array $data, array $rules){

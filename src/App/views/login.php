@@ -2,6 +2,7 @@
 
 <body>
 	<?php include $this->resolve('/partials/_message_display.php');?>
+    <div id="page-container">
     <main>
         <div>
             <p class="center text-huge">Skippit<p>
@@ -76,8 +77,9 @@
         </div>
 	</aside>
 		
-	<footer>
+	<footer id="footer">
         <p>&copy;Mose creations</p>
 	</footer>
+    </div>
 </body>
 </html>

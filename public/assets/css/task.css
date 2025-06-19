@@ -1,128 +1,107 @@
-:root
-{
-	--task-level-low-color: #17a63d;
-	--task-level-midlow-color: #c2bf1f;
-	--task-level-mid-color: #d99a1c;
-	--task-level-midhigh-color: #eb5e17;
-	--task-level-high-color: #c7311a;
-	
-	--task-text-color: Ivory;
+:root {
+  --task-level-low-color: #17a63d;
+  --task-level-midlow-color: #c2bf1f;
+  --task-level-mid-color: #d99a1c;
+  --task-level-midhigh-color: #eb5e17;
+  --task-level-high-color: #c7311a;
+
+  --task-text-color: Ivory;
 }
 
-
-.task-power-1
-{
-	background-color: var(--task-level-low-color);
+.task-power-1 {
+  background-color: var(--task-level-low-color);
 }
-.task-power-2
-{
-	background-color: var(--task-level-midlow-color);
+.task-power-2 {
+  background-color: var(--task-level-midlow-color);
 }
-.task-power-3
-{
-	background-color: var(--task-level-mid-color);
+.task-power-3 {
+  background-color: var(--task-level-mid-color);
 }
-.task-power-4
-{
-	background-color: var(--task-level-midhigh-color);
+.task-power-4 {
+  background-color: var(--task-level-midhigh-color);
 }
-.task-power-5
-{
-	background-color: var(--task-level-high-color);
+.task-power-5 {
+  background-color: var(--task-level-high-color);
 }
 
-.task-show
-{
-	color: var(--task-text-color);
-	padding: 10px;
-}
-.task-show:first-child
-{
-	margin-top: 30px;
-	border-radius: 15px 15px 0 0;
-	filter: grayscale(30%);
-}
-.task-show:last-child
-{
-	border-radius: 0 0 15px 15px;
+.task-show {
+  border-radius: 3px;
+  color: var(--task-text-color);
 }
 
-.task-title
-{
-	font-size: 120%;
-	font-weight: 700;
-}
-.task-title-menu
-{
-	text-align: center;
-	cursor: pointer;
-	background-color: inherit;
-}
-.task-title-menu i:hover
-{
-	filter: contrast(20%);
+.task-header {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
-.task-menu-list
-{
-	display: none;
-	width: auto;
-	position: absolute;
-	z-index: 90;
-	right: 0;
-	top: calc(20px + 1.5em);
-	padding: 0;
-	margin: 0;
-	list-style-type: none;
-	text-align: center;
-	background-color: var(--task-text-color);
-	filter: brightness(90%);
-	color: var(--font-color);
-}
-.task-menu-list li
-{
-	cursor: pointer;
-	padding: 10px 20px;
-	border-bottom: 2px solid black;
-}
-.task-menu-list li:last-child
-{
-	border: none;
+.task-title {
+  font-size: 120%;
+  font-weight: 700;
 }
 
-
-.task-content
-{
-	padding: 15px;
-	font-size: calc(12px + 0.5vh);
-	overflow: auto;
-	height: 30vh;
-}
-.task-content::-webkit-scrollbar
-{
-	width: 6px;
-}
-.task-content::-webkit-scrollbar-thumb
-{
-	background-color: rgba(0,0,0,0.5);
-	border-radius: 3px;
-	width: 4px;
+.task-title-menu {
+  text-align: center;
+  cursor: pointer;
 }
 
-#add-task-button
-{
-	color: var(--task-text-color);
-	padding: 20px;
-	position: fixed;
-	background-color: var(--task-level-low-color);
-	border-radius: 100px;
-	bottom: 50px;
-	right: 50px;
-	cursor: pointer;
-	border: 2px solid rgba(255,255,255, 0.5);
-	z-index: 80;
+.task-title-menu i:hover {
+  filter: contrast(20%);
 }
-#add-task-button:hover
-{
-	filter: grayscale(30%);
+
+.task-menu-list {
+  display: none;
+  width: auto;
+  position: absolute;
+  z-index: 90;
+  right: 0;
+  top: calc(20px + 1.5em);
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  text-align: center;
+  background-color: var(--task-text-color);
+  filter: brightness(90%);
+  color: var(--font-color);
+}
+.task-menu-list li {
+  cursor: pointer;
+  padding: 10px 20px;
+  border-bottom: 2px solid black;
+}
+.task-menu-list li:last-child {
+  border: none;
+}
+
+.task-content {
+  padding: 15px;
+  font-size: calc(12px + 0.5vh);
+  overflow: auto;
+  height: 30vh;
+}
+.task-content::-webkit-scrollbar {
+  width: 6px;
+}
+.task-content::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+  width: 4px;
+}
+
+#add-task-button {
+  color: var(--task-text-color);
+  padding: 20px;
+  position: fixed;
+  background-color: var(--task-level-low-color);
+  border-radius: 100px;
+  bottom: 50px;
+  right: 50px;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  z-index: 80;
+}
+#add-task-button:hover {
+  filter: grayscale(30%);
 }

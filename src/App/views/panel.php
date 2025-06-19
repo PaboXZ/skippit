@@ -11,76 +11,120 @@
         </div>
     </div>
 	<?php include $this->resolve('/partials/_message_display.php');?>
+    
+	<?php if(isset($_SESSION["active_thread"])): ?>
+    <!--Sidebar-->     
     <nav class="sidemenu" id="sidemenu">
         <ul>
-            <!--Wątek aktywny-->
-            <li class="active-thread"><a href="change_active_thread.php?id=THREAD_ID">Thread Name</a><br></li>
-            <!--Wątek nieaktywny-->
-            <li class="inactive-thread"><a href="change_active_thread.php?id=THREAD_ID">Thread Name</a><br></li>
-            <li onclick="showDialogBox('add-thread')"><a id="create-thread">+ Utwórz</a></li>
+            <?php foreach($threads as $thread): ?>
+                <li class="<?= $thread['id'] == $_SESSION['active_thread'] ? "active-thread" : "inactive-thread" ?>"><a href="/change-thread/<?= $thread['id']?>"><?= $thread['name'] ?></a><br></li>
+            <?php endforeach; ?>
+            <li onclick="showDialogBox('add-thread')"><a id="create-thread">+ New thread</a></li>
         </ul>
     </nav>
-				
+    <!--Main area-->            
     <main>
         <div class="big-box">
-            <div id="thread-active-name">Thread active name</div>
+            <div id="thread-active-name"><?= $active_thread['name'] ?></div>
             <?php
             //DELETE PERMISSION NEEDED
             //LOOP FOR TASK COUNT
             //POWER NEEDED
             ?>
             <div class="two-column">
-                <div class="task-show task-power-5">
-                    <div class="task-title">Task Title</div>
-                    <div class="task-title-menu" onclick="showTaskMenu('task-title')">
-                        <i class="icon-menu"></i>
-                        <ul class="task-menu-list" id="task-menu-list-task-title">
-                            <li onclick="deleteTask('task-title', 'task-id')">Usuń wpis</li>
-                        </ul>
+                <?php foreach($tasks as $task): ?>
+                <div class="task-show task-power-<?=$task['power']?>">
+                    <div class="task-header">
+                        <div class="task-title"><?=$task['title']?></div>
+                        <div class="task-title-menu" onclick="showTaskMenu('task-title')">
+                            <i class="icon-menu"></i>
+                            <ul class="task-menu-list" id="task-menu-list-task-title">
+                                <li onclick="deleteTask('task-title', 'task-id')">Usuń wpis</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="task-show task-power-5">
-                        <div class="task-content">Content</div>
+                    <div class="task-content"><?=$task['content']?></div>
                 </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </main>
+ 
 
+    <?php if($active_thread['create_power'] > 0): ?>
+        
+        <!--Add task floating button-->   
+        <div id="add-task-button" onclick="showDialogBox('add-task')">+ Add task</div>
 
-    <?php
-    // Przycisk dodawania wpisu, wyświetlać tylko jeśli są uprawnienia (create_power > 0);
-    ?>
-
-    <div id="add-task-button" onclick="showDialogBox('add-task')">+ Dodaj wpis</div>
-
-    <?php 
-    #Formularz nowego wpisu
-    #Potrzebny creation_power do określenia czy wyświetlać okno i jeśli tak to jakie poziomy można nadawać wpisom
-    // $priority_levels[0] = array("power-mid-low", "power-mid", "power-mid-high", "power-high");				
-	// $priority_levels[1] = array("Średnio-niski", "Średni", "Średnio-wysoki", "Wysoki");
-    // Jeśli mamy dane błędu wysyłki formularza to okno powinno być wyświetlone ?>
-    
-    <aside>
-        <div class="blur-background" id="add-task">
-            <div class="dialog-box">
-                <div>Tworzenie wpisu</div>
-                <div class="dialog-box-close" onclick="closeDialogBox('add-task')"><i class="icon-cancel"></i></div>
-                    <form action="create_task.php" method="POST">
-                        Nazwa wpisu:<br>
-                        <input type="text" name="task_title" placeholder="Nazwa wpisu" value=""/>
-                        Treść wpisu:<br>
-                        <textarea name="task_content" rows="6"></textarea><br>
-                        Priorytet:<br>
-                        <input type="radio" name="task_power" value="1" id="power-low" checked/>
-                        <label for="power-low">Niski</label><br>
-                        <input type="radio" name="task_power" value="'.$i.'" id="iterować wartości"/>
-                        <label for="Iterować wartości">Iterować wartości</label><br>
-                        <br>
-                        <input type="submit" value="Dodaj wpis"/>
-                    </form>
+        <!--Add task form-->
+        <aside>
+            <div class="blur-background" id="add-task" style="<?= isset($oldFormData['task_title']) ? "display: block;" : "" ?>">
+                <div class="small-box-centered valign-5 bg-tile">
+                    <div class="dialog-box-close" onclick="closeDialogBox('add-task')"><i class="icon-cancel"></i></div>
+                        <form class="form-standard" action="/create-task" method="POST">
+                            <div class="text-mid">Create Task</div>
+                            <div>Task title:</div>
+                            <input type="text" name="task_title" placeholder="Task title" value=""/>
+                            <?php if(isset($errors['task_title'])): ?>
+                                <div class="form-error-message"><?=$errors['task_title'][0]?></div>
+                            <?php endif;?>
+                            <div>Content:</div>
+                            <textarea name="task_content" rows="6"></textarea><br>
+                            <?php if(isset($errors['task_content'])): ?>
+                                <div class="form-error-message"><?=$errors['task_content'][0]?></div>
+                            <?php endif;?>
+                            <div>Priority:</div>
+                            <?php switch($active_thread['create_power']): 
+                                case 5: ?>
+                            <div>
+                                <input type="radio" name="task_power" value="5" id="power-high"/>
+                                <label for="power-high">High</label>
+                            </div>
+                                <?php case 4: ?>
+                            <div>
+                                <input type="radio" name="task_power" value="4" id="power-mid-high"/>
+                                <label for="power-mid-high">Mid-High</label>
+                            </div>
+                                <?php case 3: ?>
+                            <div>
+                                <input type="radio" name="task_power" value="3" id="power-mid"/>
+                                <label for="power-mid">Medium</label>
+                            </div>
+                                <?php case 2: ?>
+                            <div>
+                                <input type="radio" name="task_power" value="2" id="power-mid-low"/>
+                                <label for="power-mid-low">Mid-Low</label>
+                            </div>
+                                <?php case 1: ?>
+                            <div>
+                                <input type="radio" name="task_power" value="1" id="power-low" checked/>
+                                <label for="power-low">Low</label>
+                            </div>
+                                <?php default: endswitch; ?>
+                            <?php if(isset($errors['task_power'])): ?>
+                                <div class="form-error-message"><?=$errors['task_power'][0]?></div>
+                            <?php endif;?>
+                            <br>
+                            <input type="submit" value="Add task"/>
+                            <?php include $this->resolve('/partials/_csrf.php'); ?>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </aside>
+        </aside>
+    <?php endif; ?>
+
+    <?php else: ?>
+        <!--Empty content-->
+        <main>
+            <div class="big-box">
+                <div id="thread-active-name">Add new thread to begin</div>
+                <div class="center"><button class="button" onclick="showDialogBox('add-thread')">Add</button></div>
+            </div>
+        </main>
+    <?php endif; ?>
+
+    
 
     <!--Confirm action box-->
     <aside class="blur-background" id="confirm-action-box">
