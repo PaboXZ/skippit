@@ -36,12 +36,21 @@
                 <div class="task-show task-power-<?=$task['power']?>">
                     <div class="task-header">
                         <div class="task-title"><?=$task['title']?></div>
-                        <div class="task-title-menu" onclick="showTaskMenu('task-title')">
-                            <i class="icon-menu"></i>
-                            <ul class="task-menu-list" id="task-menu-list-task-title">
-                                <li onclick="deleteTask('task-title', 'task-id')">Usuń wpis</li>
+                            <div class="task-title-menu" onclick="showTaskMenu('<?=$task['id']?>')">
+                                <i class="icon-menu"></i>
+                            </div>
+                            <ul class="task-menu-list" id="task-menu-list-<?=$task['id']?>">
+                                <li onclick="">Pin</li>
+                                <?php if($active_thread['edit_permission']): ?>
+                                    <li onclick="">Edit</li>
+                                <?php endif;?>
+                                <?php if($active_thread['complete_permission']): ?>
+                                    <li onclick="">Complete</li>
+                                <?php endif;?>
+                                <?php if($active_thread['delete_permission']): ?>
+                                    <li onclick="deleteTask('task-title', 'task-id')">Delete</li>
+                                <?php endif;?>
                             </ul>
-                        </div>
                     </div>
                     <div class="task-content"><?=$task['content']?></div>
                 </div>
@@ -152,6 +161,9 @@
             </div>
 		</div>
 	</aside>
-
+    <aside>
+        <div class="hidden-barrier"></div>
+    </aside>
+    <script src="/assets/js/task.js"></script>
 </body>
 </html>

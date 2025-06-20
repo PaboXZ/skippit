@@ -30,6 +30,7 @@
 }
 
 .task-header {
+  position: relative;
   padding: 1rem;
   display: flex;
   justify-content: space-between;
@@ -53,23 +54,22 @@
 
 .task-menu-list {
   display: none;
-  width: auto;
   position: absolute;
   z-index: 90;
-  right: 0;
-  top: calc(20px + 1.5em);
+  top: calc(2rem + 1em + 9px);
+  right: 2px;
   padding: 0;
   margin: 0;
   list-style-type: none;
   text-align: center;
   background-color: var(--task-text-color);
-  filter: brightness(90%);
   color: var(--font-color);
+  border-radius: 2px;
 }
 .task-menu-list li {
-  cursor: pointer;
   padding: 10px 20px;
-  border-bottom: 2px solid black;
+  cursor: pointer;
+  border-bottom: 1px solid rgb(153, 153, 153);
 }
 .task-menu-list li:last-child {
   border: none;

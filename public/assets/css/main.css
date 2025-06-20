@@ -216,6 +216,16 @@ a {
   font-weight: 700;
 }
 
+.hidden-barrier {
+  position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  z-index: 89;
+  width: 100vw;
+  height: 100vh;
+}
+
 /*Deprecated code underneath*/
 
 .topnav-button {
