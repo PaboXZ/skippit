@@ -1,1 +1,0 @@
-<input type="hidden" name="_CSRF" value="<?= $_SESSION['token']?>" />
