@@ -27,8 +27,6 @@
         <div class="big-box">
             <div id="thread-active-name"><?= $active_thread['name'] ?></div>
             <?php
-            //DELETE PERMISSION NEEDED
-            //LOOP FOR TASK COUNT
             //POWER NEEDED
             ?>
             <div class="two-column">
@@ -48,7 +46,7 @@
                                     <li onclick="">Complete</li>
                                 <?php endif;?>
                                 <?php if($active_thread['delete_permission']): ?>
-                                    <li onclick="deleteTask('task-title', 'task-id')">Delete</li>
+                                    <li onclick="deleteTask('<?=$task['title']?>', '<?=$task['id']?>')">Delete</li>
                                 <?php endif;?>
                             </ul>
                     </div>
@@ -137,10 +135,12 @@
 
     <!--Confirm action box-->
     <aside class="blur-background" id="confirm-action-box">
-        <div class="dialog-box-title dialog-box-close" onclick="closeDialogBox('confirm-action-box'); clearConfirmActionBox();"><i class="icon-cancel"></i></div>
-        <div class="message-container" id="confirm-action-text">Tekst</div>
-        <div class="confirm-action-button" id="action-confirm">Akceptuj</div>				
-        <div class="confirm-action-button" id="action-decline" onclick="closeDialogBox('confirm-action-box'); clearConfirmActionBox();">Powrót</div>
+        <div class="mid-box-centered bg-tile">
+            <div class="dialog-box-title dialog-box-close" onclick="closeDialogBox('confirm-action-box'); clearConfirmActionBox();"><i class="icon-cancel"></i></div>
+            <div class="message-box" id="confirm-action-text">Tekst</div>
+            <div class="button" id="action-confirm">Akceptuj</div>				
+            <div class="reverse-button" id="action-decline" onclick="closeDialogBox('confirm-action-box'); clearConfirmActionBox();">Powrót</div>
+        </div>
 	</aside>
 	
 	<!--Add thread box-->

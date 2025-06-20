@@ -19,7 +19,7 @@ class ThreadService {
         return $this->db->query('SELECT * FROM connection_user_thread INNER JOIN threads ON connection_user_thread.thread_id = threads.id WHERE connection_user_thread.user_id = :userID', ['userID' => $userID])->findAll();
     }
 
-    public function getUsersThreadByID(int $threadID) {
+    public function getUsersThreadByID(int|string $threadID) {
         return $this->db->query('SELECT * FROM connection_user_thread INNER JOIN threads ON connection_user_thread.thread_id = threads.id WHERE connection_user_thread.user_id = :userID AND connection_user_thread.thread_id = :threadID', ['userID' => $_SESSION['user'], 'threadID' => $threadID])->find();
     }
 
@@ -37,4 +37,7 @@ class ThreadService {
         return $this->db->query('SELECT * FROM threads WHERE owner_id = :user', ['user' => $_SESSION['user']])->findAll();
     }
 
+    public function getLastID() {
+        return $this->db->getLastID();
+    }
 }

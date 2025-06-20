@@ -37,7 +37,7 @@ function hideBarrier() {
 }
 
 function deleteTask(task_name, task_id) {
-  showTaskMenu(task_name);
+  hideBarrier();
 
   document.getElementById("confirm-action-text").innerHTML =
     'Czy chcesz usunąć wpis: "' +
@@ -47,7 +47,7 @@ function deleteTask(task_name, task_id) {
     .getElementById("action-confirm")
     .setAttribute(
       "onclick",
-      "window.location.href='task_delete.php?task_id=" + task_id + "'"
+      "window.location.href='/delete-task/" + task_id + "'"
     );
 
   document.getElementById("confirm-action-box").style.cssText =

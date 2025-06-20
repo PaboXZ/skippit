@@ -2,6 +2,7 @@
   --font-color: black;
   --background: Ivory;
   --error-color: red;
+  --error-color-mild: rgb(255, 63, 81);
 
   /*Standard Form*/
   --form-border-color: rgb(63, 63, 63);
@@ -105,6 +106,12 @@ a {
   margin: auto;
   padding: 1em;
 }
+.mid-box-centered {
+  width: 600px;
+  margin: auto;
+  padding: 1em 1.5em;
+  margin-top: 20vh;
+}
 
 .valign-20 {
   position: relative;
@@ -129,14 +136,19 @@ a {
   color: var(--button-color);
 }
 
+.message-box {
+  padding: 1em;
+  font-weight: 600;
+  color: var(--error-color-mild);
+}
+
 /*Buttons*/
 .button {
-  padding: 0.5em;
+  padding: 1em;
   background-color: var(--form-submit-bg-color);
-  border: 1px solid var(--form-submit-border);
-  border-radius: 4px;
+  border-radius: 3px;
   color: var(--form-submit-color);
-  font-size: 1.1em;
+  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.1ch;
   text-align: center;
@@ -154,6 +166,7 @@ a {
   font-size: 1.1em;
   font-weight: 600;
   letter-spacing: 0.2ch;
+  padding: 1em;
 }
 .reverse-button-small {
   text-align: center;
@@ -226,35 +239,6 @@ a {
   height: 100vh;
 }
 
-/*Deprecated code underneath*/
-
-.topnav-button {
-  padding: 14px 0;
-  border-radius: 5px;
-  text-align: center;
-  color: var(--topnav-button-text);
-  text-decoration: none;
-  background-color: var(--topnav-button-background);
-  display: block;
-  font-weight: 700;
-}
-.topnav-button:hover {
-  cursor: pointer;
-  background-color: var(--topnav-button-hover);
-}
-.topnav-button-mobile {
-  display: inline-block;
-  box-sizing: border-box;
-  padding: 10px;
-  color: var(--topnav-button-background);
-  font-size: 180%;
-  font-weight: 700;
-  cursor: pointer;
-}
-.topnav-button-mobile-right {
-  text-align: right;
-}
-
 .blur-background {
   display: none;
   width: 100%;
@@ -264,105 +248,6 @@ a {
   background-color: rgba(127, 127, 127, 0.4);
   color: black;
   z-index: 97;
-}
-.dialog-box {
-  max-height: 80vh;
-  overflow: auto;
-  margin-top: 10vh;
-  padding: 20px;
-  background-color: var(--background);
-  border-radius: 15px;
-}
-.dialog-box-title {
-  font-size: 200%;
-  font-weight: 700;
-}
-
-.dialog-box-content {
-  margin-top: 20px;
-}
-
-.dialog-box select,
-.dialog-box textarea,
-.dialog-box input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 6px;
-  outline: none;
-  border: none;
-  background-color: var(--input-field-color);
-  color: var(--input-field-text);
-}
-.dialog-box input:focus {
-  -webkit-box-shadow: inset 0px 0px 22px -15px rgba(0, 0, 0, 1);
-  -moz-box-shadow: inset 0px 0px 22px -15px rgba(0, 0, 0, 1);
-  box-shadow: inset 0px 0px 22px -15px rgba(0, 0, 0, 1);
-}
-.dialog-box input::placeholder {
-  color: var(--input-field-placeholder);
-}
-
-.dialog-box input[type="submit"] {
-  margin: 30px 0 30px 0;
-  font-size: 170%;
-  font-weight: 700;
-  background-color: var(--input-submit-color);
-  color: var(--input-submit-text);
-}
-.dialog-box input[type="submit"]:hover {
-  background-color: var(--input-submit-hover);
-}
-.dialog-box input[type="radio"],
-.dialog-box input[type="checkbox"] {
-  width: auto;
-  margin-top: 18px;
-}
-
-#dialog-box-message {
-  z-index: 100;
-}
-.message-container {
-  margin: 10px 0;
-  padding: 10px;
-}
-#message-text {
-  display: none;
-  color: Green;
-  background-color: LightGreen;
-  border: 1px solid Green;
-  border-radius: 5px;
-}
-#error-text {
-  display: none;
-  color: red;
-  background-color: LightPink;
-  border: 1px solid Red;
-  border-radius: 5px;
-}
-
-#confirm-action-text {
-  color: Blue;
-  background-color: LightBlue;
-  border: 1px solid Blue;
-  border-radius: 5px;
-}
-.confirm-action-button {
-  padding: 0.6em 0;
-  border-radius: 0.5em;
-  text-align: center;
-  font-weight: 700;
-  color: var(--input-submit-text);
-  cursor: pointer;
-}
-.confirm-action-button:hover {
-  filter: brightness(80%);
-}
-#action-confirm {
-  background-color: var(--input-submit-color);
-}
-#action-decline {
-  background-color: var(--input-submit-warning);
 }
 
 .display-none {

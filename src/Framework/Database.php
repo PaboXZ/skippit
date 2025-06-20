@@ -48,4 +48,8 @@ class Database {
     public function count(){
         return $this->statement->rowCount();
     }
+
+    public function getLastID() {
+        return $this->connection->lastInsertId();
+    }
 }

@@ -52,6 +52,8 @@ class PanelController{
         }
         $this->validator->validateThread($_POST);
         $this->threads->create($_POST['thread_name']);
+        if(!isset($_SESSION['active_thread']))
+            $_SESSION['active_thread'] = $this->threads->getLastID();
         redirectTo('/');
     }
 
@@ -79,6 +81,27 @@ class PanelController{
 
         $this->tasks->create($data);
         
+        redirectTo('/');
+    }
+
+    public function deleteTask(array $parameters) {
+        echo 1;
+        if(!isset($_SESSION['active_thread'])){
+            redirectTo('/');
+            exit;
+        }
+
+        $activeThread = $this->threads->getUsersThreadByID($_SESSION['active_thread']);
+        $task = $this->tasks->getTaskByID($parameters['id']);
+
+        if($task['thread_id'] !== $activeThread['id']){
+            redirectTo('/');
+            exit;
+        }
+
+        if($activeThread['delete_permission']) {
+            $this->tasks->delete($task['id']);
+        }
         redirectTo('/');
     }
 }
