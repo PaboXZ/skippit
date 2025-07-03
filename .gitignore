@@ -1,2 +1,3 @@
 /vendor/
 .env
+login_data.txt

@@ -1,26 +1,43 @@
 var isMenuOpen = false;
 var lastOpenedMenuId = "";
 var currentMenuId = "";
+
 let barrier = document.getElementsByClassName("hidden-barrier")[0];
 barrier.addEventListener("click", hideBarrier);
+
+// Tasks menus event listeners
+const menuTiles = document.getElementsByClassName("task-title-menu");
+for (let tile of menuTiles) {
+  let id = tile.id.slice(16);
+  tile.addEventListener("click", () => {
+    showTaskMenu(id);
+  });
+}
+
+const deleteTiles = document.getElementsByClassName("delete-task");
+for (let tile of deleteTiles) {
+  let id = tile.id.slice(12);
+  let title = document.getElementById(`task-title-${id}`).innerText;
+  tile.addEventListener("click", () => {
+    deleteTask(title, id);
+  });
+}
 
 function showTaskMenu(taskID) {
   currentMenuId = "task-menu-list-" + taskID;
   if (!isMenuOpen) {
-    document.getElementById(currentMenuId).style.cssText = "display: block;";
+    showDialogBox(currentMenuId);
     lastOpenedMenuId = currentMenuId;
     isMenuOpen = true;
     showBarrier();
   } else {
     if (lastOpenedMenuId != currentMenuId) {
-      document.getElementById(lastOpenedMenuId).style.cssText =
-        "display: none;";
-      document.getElementById(currentMenuId).style.cssText = "display: block;";
+      closeDialogBox(lastOpenedMenuId);
+      showDialogBox(currentMenuId);
       lastOpenedMenuId = currentMenuId;
       showBarrier();
     } else {
-      document.getElementById(lastOpenedMenuId).style.cssText =
-        "display: none;";
+      closeDialogBox(lastOpenedMenuId);
       lastOpenedMenuId = "";
       isMenuOpen = false;
     }
@@ -39,17 +56,10 @@ function hideBarrier() {
 function deleteTask(task_name, task_id) {
   hideBarrier();
 
-  document.getElementById("confirm-action-text").innerHTML =
-    'Czy chcesz usunąć wpis: "' +
-    task_name +
-    '" Ta operacja jest nieodwracalna.';
-  document
-    .getElementById("action-confirm")
-    .setAttribute(
-      "onclick",
-      "window.location.href='/delete-task/" + task_id + "'"
-    );
-
-  document.getElementById("confirm-action-box").style.cssText =
-    "display: block;";
+  confirmActionDisplay(
+    'Delete task  "' + task_name + '"?   This operation is irreversible.',
+    () => {
+      window.location.href = "/delete-task/" + task_id + "'";
+    }
+  );
 }
